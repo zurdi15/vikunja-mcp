@@ -161,9 +161,10 @@ def update_task(
     description: str | None = None,
 ) -> dict:
     """Actualiza una tarea: `done=true` la cierra (false la reabre); título y
-    descripción opcionales. Solo se envían los campos indicados."""
-    current = _call("GET", f"/tasks/{task_id}")
-    body: dict[str, Any] = {"title": current.get("title")}  # Vikunja exige title en el POST
+    descripción opcionales. Los campos no indicados se conservan."""
+    # POST /tasks/{id} reemplaza la tarea entera y resetea lo omitido, así que
+    # el body parte de la tarea actual y solo se sobrescribe lo que cambia.
+    body: dict[str, Any] = _call("GET", f"/tasks/{task_id}")
     if done is not None:
         body["done"] = done
     if title is not None:
