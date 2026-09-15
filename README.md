@@ -23,8 +23,15 @@ straight from this repository.
 
 ## Per-repo setup (Claude Code)
 
-Commit a `.mcp.json` at the repo root. The URL and the default project are plain values; the
-token is **not** in the file — it is read from the environment of whoever runs the agent:
+One command in the repo root writes (or completes) its `.mcp.json`:
+
+```bash
+uvx --from git+https://github.com/zurdi15/vikunja-mcp vikunja-mcp-init "My project" --url https://vikunja.example.net
+```
+
+`--url` can be omitted when `VIKUNJA_URL` is in the environment; the project defaults to the
+folder name. Commit the file. The URL and the default project are plain values; the token is
+**not** in the file — it is read from the environment of whoever runs the agent:
 
 ```json
 {

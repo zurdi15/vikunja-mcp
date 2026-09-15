@@ -49,11 +49,11 @@ def main(argv: list[str] | None = None) -> None:
         },
     }
     path.write_text(json.dumps(config, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"{path}: servidor 'vikunja' → {args.url} · proyecto '{project}'")
+    print(f"{path}: servidor 'vikunja' -> {args.url} (proyecto por defecto: {project})")
     if not os.environ.get("VIKUNJA_TOKEN"):
         print(
             "aviso: VIKUNJA_TOKEN no está en el entorno de esta máquina; sin ella el servidor no arranca "
-            "(ver README: export VIKUNJA_TOKEN=… o [Environment]::SetEnvironmentVariable en Windows)",
+            "(ver README: export VIKUNJA_TOKEN=... o [Environment]::SetEnvironmentVariable en Windows)",
             file=sys.stderr,
         )
 
