@@ -67,6 +67,24 @@ The first time Claude Code opens a repo with a `.mcp.json` it asks whether to tr
 project's MCP servers. Pin a revision with `git+https://github.com/zurdi15/vikunja-mcp@v0.1.0`
 if you want builds to be reproducible.
 
+## Private setup (no file in the repo)
+
+For a repo you don't want a `.mcp.json` in (an open-source project, say), register the same
+entry for yourself only, in that directory only:
+
+```bash
+uvx --from git+https://github.com/zurdi15/vikunja-mcp vikunja-mcp-init "My project" --url https://vikunja.example.net --local
+```
+
+It runs `claude mcp add-json vikunja ... --scope local`, which Claude Code keeps in
+`~/.claude.json` under the project path. `${VIKUNJA_TOKEN}` is still read from the environment,
+and a local entry wins over a `.mcp.json` one with the same name. To move an existing
+`.mcp.json` entry out of a repo:
+
+```bash
+claude mcp add-json vikunja --scope local "$(jq -c .mcpServers.vikunja .mcp.json)" && rm .mcp.json
+```
+
 ## Environment
 
 | Variable | Required | Meaning |
